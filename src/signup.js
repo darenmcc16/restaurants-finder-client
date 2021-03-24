@@ -19,18 +19,6 @@ class Register extends React.Component{
                 value: "",
                 touched: false,
             },
-            city: {
-                value: "",
-                touched: false,
-            },
-            state: {
-                value: "",
-                touched: false,
-            },
-            zip: {
-                value: "",
-                touched: false,
-            },
         };
     }
 
@@ -87,64 +75,14 @@ class Register extends React.Component{
         }
     }
 
-    validateRepeatPassword(){
+    validateRepeatPassword() {
         const repeatPassword = this.state.repeatPassword.value.trim();
         const password = this.state.password.value.trim();
-
-        if(repeatPassword !==password){
-            return <p className="input-error">Password does not match</p>;
+        if (repeatPassword !== password) {
+            return <p className="input-error">Passwords do not match</p>;
         }
     }
 
-    changeCity(city){
-        this.setState({
-            city: {value: city, touched: true}
-        });
-    }
-
-    validateCity(){
-        const city = this.state.city.value.trim();
-        if(city.length === 0){
-            return <p className="input-error">City is required</p>;
-        }
-        else if(city.length < 2){
-            return(
-            <p className="input-error">City must be at least 2 characters long</p>
-            );
-        }
-    }
-
-    changeState(state){
-        this.setState({
-            state: {value: state, touched: true}
-        });
-    }
-
-    validateState(){
-        const state = this.state.state.value.trim();
-        if(state.length === 0){
-               return <p className="input-error">State is required</p>;
-        }
-        else if(state.length < 2){
-            return <p className="input-error">State must be at least 2 characters long</p>;
-        }
-    }
-
-    changeZip(zip){
-        this.setState({
-            zip: {value: zip, touched: true}
-        });
-    }
-
-    validateZip(){
-        const zip = this.state.zip.value.trim();
-        if(zip.length === 0){
-            return <p className="input-error">zip is required</p>;
-        }
-        else if(zip.length < 5){
-            return <p className="input-error">Zip must be 5 characters long</p>
-        }
-    }
 
     registerUser = (event) =>{
         event.preventDefault();
@@ -157,26 +95,19 @@ class Register extends React.Component{
 
         let {user_name,
             password,
-            city,
-            state,
-            zip
         } = data;
 
         this.setState({error: null})
         AuthApiService.postUser({
             user_name,
             password,
-            city,
-            state,
-            zip
         })
         //Make sure to add Api call here.  Make sure it functions
         .then(response =>{
             TokenService.saveAuthToken(response.authToken)
             TokenService.saveUserId(response.id)
-            window.location = "/add-item"
+            window.location = "/users"
         })
-
         .catch(res =>{
             this.setState({error: res.error})
         })
@@ -190,14 +121,14 @@ class Register extends React.Component{
         <div></div>;
 
         return(
-            <div className='Signup'>
+            <div className='SignUp'>
                 <section id='signUpPage'>
                     <h2>Sign Up</h2>
                     <form className='signUpForm' onSubmit={this.registerUser}>
                         <div className="errorMessage">
                             {msg}
                         </div>
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username"></label>
                         <input 
                         type='text'
                         name='user_name'
@@ -207,7 +138,7 @@ class Register extends React.Component{
                         {this.state.user_name.touched && (
                             <ValidationError message={this.validateUsername()} />
                         )}
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password"></label>
                         <input 
                         type='text'
                         name='password'
@@ -217,7 +148,7 @@ class Register extends React.Component{
                         {this.state.user_name.touched && (
                             <ValidationError message={this.validatePassword()} />
                         )}
-                        <label>Repeat Password</label>
+                        <label></label>
                         <input 
                         type='text'
                         name='repeatPassword'
@@ -226,36 +157,6 @@ class Register extends React.Component{
                         required />
                         {this.state.user_name.touched && (
                             <ValidationError message={this.validateRepeatPassword()} />
-                        )}
-                        <label>City</label>
-                        <input 
-                        type='text'
-                        name='city'
-                        placeholder='City'
-                        onChange={(e) =>this.changeCity(e.target.value)}
-                        required />
-                        {this.state.user_name.touched && (
-                            <ValidationError message={this.validateCity()} />
-                        )}
-                        <label>State</label>
-                        <input 
-                        type='text'
-                        name='state'
-                        placeholder='State'
-                        onChange={(e) =>this.changeState(e.target.value)}
-                        required />
-                        {this.state.user_name.touched && (
-                            <ValidationError message={this.validateState()} />
-                        )}
-                        <label>Zip</label>
-                        <input 
-                        type='text'
-                        name='zip'
-                        placeholder='Zip'
-                        onChange={(e) =>this.changeZip(e.target.value)}
-                        required />
-                        {this.state.user_name.touched && (
-                            <ValidationError message={this.validateZip} />
                         )}
                         <button
                         className="signup-button"

@@ -153,7 +153,7 @@ class BusinessSearch extends React.Component {
                     }
 
                     //check if the data validation works
-                    console.log(validatedOutput);
+                    //console.log(validatedOutput);
 
                     // fix the inconsitent results and return them
                     return validatedOutput;

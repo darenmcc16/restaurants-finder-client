@@ -4,7 +4,7 @@ Hungry but don't know where to eat?  Restaurant Finder will be able to help you 
 
 
 ### 1. Working Prototype (to do later)
-(Example) You can access a working prototype of the React app here: https://your-app-client.herokuapp.com/ and Node app here: https://your-app-server.herokuapp.com/
+(Example) You can access a working prototype of the React app here: https://your-app-client.herokuapp.com/ and Node app here: https://restaurant-finder-serv.herokuapp.com/
 
 
 
