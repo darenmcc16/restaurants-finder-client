@@ -96,6 +96,7 @@ class Register extends React.Component{
         let {user_name,
             password,
         } = data;
+        console.log(data)
 
         this.setState({error: null})
         AuthApiService.postUser({
@@ -106,7 +107,8 @@ class Register extends React.Component{
         .then(response =>{
             TokenService.saveAuthToken(response.authToken)
             TokenService.saveUserId(response.id)
-            window.location = "/users"
+            window.location = "/"
+            console.log("register")
         })
         .catch(res =>{
             this.setState({error: res.error})

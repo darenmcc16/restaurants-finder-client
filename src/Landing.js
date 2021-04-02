@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from './Footer';
-import Header from './Header';
-import BusinessSearch from './yelp-api/BusinessSearch';
+
+
 
 
 
@@ -15,7 +15,6 @@ function Landing(){
                         Create a wish list or save you favorites, with Restaurant Finder you'll have every restaurant in your area at your finger tips.
                         </h5>
                     </div>
-                    <BusinessSearch />
                     <Footer />
                 </section>
             </div>

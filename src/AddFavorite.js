@@ -6,8 +6,36 @@ export default class AddFavorite extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      user_id:{
+        value:'',
+        touched: false
+      },
+      yelp_id:{
+        value:'',
+        touched: false
+      },
       name: {
         value: '',
+        touched: false
+      },
+      phone: {
+        value: '',
+        touched: false
+      },
+      url: {
+        value:'',
+        touched: false
+      },
+      price:{
+        value:'',
+        touched: false
+      },
+      rating:{
+        value:'',
+        touched: false
+      },
+      visited:{
+        value: 0,
         touched: false
       }
     }
@@ -15,8 +43,7 @@ export default class AddFavorite extends Component {
 
   static contextType = ApiContext;
 
-  handleAddFolder = (e) => {
-    e.preventDefault();
+  handleAddRestaurant = (e) => {
 
     const newFavorite = JSON.stringify({
       restaurant_name: this.state.name.value
@@ -51,7 +78,7 @@ export default class AddFavorite extends Component {
     return (
       <section className='AddFavoriteList'>
             
-            <button type='submit' htmlFor="favoriteName" id="favoriteName" onClick={e => this.addFav(e.target.value)}>
+            <button type='submit' htmlFor="favoriteName" id="favoriteName" onClick={e => this.handleAddRestaurant(e.target.value)}>
               Add to favorites
             </button>
       </section>

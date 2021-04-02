@@ -1,9 +1,10 @@
 import React from 'react'
 import Search from '../Search'
 import SearchResults from '../SearchResults'
+import {API_ENDPOINT} from '../config'
+import TokenService from '../service/token-service'
 
 class BusinessSearch extends React.Component {
-
     //setup the constructor with the default props and states
     constructor(props) {
         super(props)
@@ -13,8 +14,21 @@ class BusinessSearch extends React.Component {
             params: {
                 location: '',
                 term: ''
-            }
+            },
+            addFavorite: []
         }
+    }
+
+    componentDidMount() {
+        let currentUser = TokenService.getUserId();
+        console.log(currentUser)
+
+        //if the user is not logged in, send him to landing page
+        if (!TokenService.hasAuthToken()) {
+            window.location = '/'
+        }
+
+
     }
 
     // convert query parameter from an object to a string
@@ -78,13 +92,15 @@ class BusinessSearch extends React.Component {
     //get the imput from the user
     handleSearch = (e) => {
         e.preventDefault()
+        let currentUser = TokenService.getUserId();
+        // console.log(currentUser)
 
         //create an object to store the search filters
         const data = {}
 
         //get all the from data from the form component
         const formData = new FormData(e.target)
-        
+
 
         //for each of the keys in form data populate it with form value
         for (let value of formData) {
@@ -100,7 +116,7 @@ class BusinessSearch extends React.Component {
         console.log(this.state.params)
 
         //get the yelp api url
-        
+
 
         //format the queryString paramters into an object
         //const queryString = this.formatQueryParams(data)
@@ -139,23 +155,26 @@ class BusinessSearch extends React.Component {
                     //console.log("aRestaurant")
 
                     // get the name, rating, price, review_count, 
-                    const { name, rating, price, review_count, url } = restaurant
-                    
-
-
+                    const {
+                        id,
+                        name,
+                        display_phone,
+                        rating,
+                        price,
+                        review_count,
+                        url
+                    } = restaurant
 
                     let validatedOutput = {
+                        yelp_id: this.checkString(id),
                         name: this.checkString(name),
-                        rating: this.checkInteger(rating),
+                        display_phone: this.checkString(display_phone),
+                        url: this.checkString(url),
                         price: this.checkString(price),
-                        review_count: this.checkInteger(review_count),
-                        url: this.checkString(url)
+                        rating: this.checkInteger(rating),
+                        review_count: this.checkInteger(review_count)
                     }
 
-                    //check if the data validation works
-                    //console.log(validatedOutput);
-
-                    // fix the inconsitent results and return them
                     return validatedOutput;
                 })
 
@@ -174,9 +193,54 @@ class BusinessSearch extends React.Component {
                     error: err.message
                 })
             })
-            console.log(api)
+        console.log(api)
 
     }
+
+
+    handleAddRestaurant = (e) => {
+        e.preventDefault()
+        let currentUser = TokenService.getUserId();
+        // console.log(currentUser)
+        //create an object to store the search filters
+        const data = {}
+
+        //get all the from data from the form component
+        const formData = new FormData(e.target)
+
+        //for each of the keys in form data populate it with form value
+        for (let value of formData) {
+            data[value[0]] = value[1]
+        }
+
+        //assigning the object from the form data to params in the state
+        this.setState({
+            params: data
+        })
+
+        //check if the state is populated with the search params data
+        console.log(data)
+        
+ 
+
+        fetch(`${API_ENDPOINT}`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(res =>
+                (!res.ok) ?
+                res.json().then(e => Promise.reject(e)) :
+                res.json()
+            )
+            .catch(err => {
+                console.log('error:', err)
+            })
+
+
+    };
 
     render() {
 
@@ -187,22 +251,42 @@ class BusinessSearch extends React.Component {
         const restaurants = this.state.restaurant.map((restaurant, i) => {
             return <SearchResults
                 key={i}
+                user_id={TokenService.getUserId()}
+                yelp_id={restaurant.yelp_id}
                 name={restaurant.name}
-                rating={restaurant.rating}
-                price={restaurant.price}
-                review_count={restaurant.review_count}
+                phone={restaurant.display_phone}
                 url={restaurant.url}
+                price={restaurant.price}
+                rating={restaurant.rating}
+                review_count={restaurant.review_count}
+                handleAddRestaurant={this.handleAddRestaurant}
             />
         })
-
-
+  
         return (
-            <div className="App">
-                <Search handleSearch={this.handleSearch} />
+            <div>
+            <section className="search-business">
+                   <form onSubmit={this.handleSearch}>
+                    <label>Find:</label>
+                    <input type='text'
+                    name='term' 
+                    className='search-bar'
+                    placeholder='pizza, restaurant name'
+                    required />
+                    <label>Near:</label>
+                    <input
+                    name='location'
+                    type='text'
+                    className='location'
+                    placeholder='chicago'
+                    required />
+                    <button type="submit">search</button>
+                </form>
                 {errorMessage}
                 <div className="search-results-wrapper">
                 {restaurants}
                 </div>
+                </section>
             </div>
         )
     }

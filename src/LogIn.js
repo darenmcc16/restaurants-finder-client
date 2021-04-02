@@ -21,6 +21,8 @@ class Login extends React.Component{
         }
     };
 
+    
+
     changeUsername(userName){
         this.setState({
             userName: {value: userName},
@@ -71,10 +73,12 @@ class Login extends React.Component{
 
         .then((response) =>{
             TokenService.saveAuthToken(response.authToken);
-            TokenService.saveUserID(response.userId);
-            window.location = "/add-item/";
+            TokenService.saveUserId(response.userId);
+            console.log(TokenService.getUserId())
+            window.location = "/business-search";
         })
         .catch((err) =>{
+            console.log(err)
             this.setState({
                 error: "Username or Password invalid"
             })
@@ -83,9 +87,9 @@ class Login extends React.Component{
 
     render(){
         const msg = this.state.error?
-        <p>
+        <div>
             {this.state.error}
-        </p>:
+        </div>:
         <div></div>;
         return(
             <div className="Login">
@@ -115,9 +119,6 @@ class Login extends React.Component{
                                 message={this.validateUserName()}
                             />
                         )}
-                        <ValidationError
-                                message={this.validateUserName()}
-                            />
                         <label htmlFor="password">Password</label>
                         <input
                             type="Password"
@@ -134,9 +135,6 @@ class Login extends React.Component{
                                 message={this.validatePassword()}
                             />
                         )}
-                        <ValidationError
-                                message={this.validatePassword()}
-                            />
 
 
                         <button

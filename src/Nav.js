@@ -39,6 +39,18 @@ class Nav extends Component {
                                     <span className='navlink-text'>Log Out</span>
                                 </Link>
                             </li>
+                            <li>
+                                <Link to="/business-search">
+                                <i className="sign-out"></i>
+                                    <span className='navlink-text'>Search Restaurants</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/favorites">
+                                <i className="sign-out"></i>
+                                    <span className='navlink-text'>Favorites</span>
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                     :
@@ -49,6 +61,9 @@ class Nav extends Component {
                             </li>
                             <li>
                                 <Link to='/user/login' >Login</Link>
+                            </li>
+                            <li>
+                                <Link to='/favorites'>Your Favorites</Link>
                             </li>
                         </ul>
                     </nav>
