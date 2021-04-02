@@ -24,7 +24,13 @@ Is a short set of CSS rules that resets the styling of all HTML elements to a co
   /* -------------------------------------
 General styles (General Module, wrapping around the modules below)
 */
-
+html {
+  background: rgba(0, 0, 0, 0) url('background-image.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 body {
     /* border: 3px solid white; */
     margin: 0;
@@ -151,7 +157,7 @@ button {
 
 
   .landing-main{
-    background-image: url('background-image.jpg')!important;
+    /* background-image: url('background-image.jpg')!important; */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -187,17 +193,18 @@ button {
     margin-left: auto;
     margin-right: auto;
     /*max-width: 500px;*/
-    background-image: url('login-background-image.jpg')!important;
+    /* background-image: url('login-background-image.jpg')!important; */
   }
   
   .Login h2 {
     padding-bottom: 1em;
-    color: #ffffcc;
+    color: white;
   }
 
   .Login p {
-    color: #ffffcc;
+    color: white;
   }
+
   
   .Login .demo {
     line-height: 1.2rem;
@@ -208,7 +215,7 @@ button {
   .Login form {
     width: 50%;
     margin: 20px auto;
-    color: #ffffcc;
+    color: white;
   }
   
   .Login input {
@@ -238,7 +245,7 @@ button {
     margin-left: auto;
     margin-right: auto;
     /* max-width: 500px; */
-    background-image: url('register-background-image.jpg');
+    /* background-image: url('register-background-image.jpg'); */
     background-size: cover !important;
   }
 
@@ -261,11 +268,11 @@ button {
   }
 
   .login p {
-    color: black;
+    color: white;
   }
 
   .login a {
-    color: black;
+    color: white;
   }
 
   .login a:hover{
@@ -289,17 +296,17 @@ button {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    background-image: url('FavoriteList-background-image.jpg');
+    /* background-image: url('FavoriteList-background-image.jpg'); */
     background-size: cover;
   }
 
-  .search-business{
+  /* .search-business{
     background-image: url('search-background-image.jpg');
     text-decoration: none;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  }
+  } */
 
   /*Footer styles (Main Module)
   (all the styles inside the < footer > tag)
