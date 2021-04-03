@@ -18,14 +18,14 @@ class SearchResults extends React.Component {
                         <h4>{this.props.price} </h4>
                         <p>Review Count: {this.props.review_count}</p>
                         <a href={this.props.url}>Yelp Reviews</a>
-                        <input type='text' name='user_id' defaultValue={this.props.user_id} />
-                        <input type='text' name='yelp_id' defaultValue={this.props.yelp_id} />
-                        <input type='text' name='name' defaultValue={this.props.name} />
-                        <input type='text' name='phone' defaultValue={this.props.phone} />
-                        <input type='text' name='url' defaultValue={this.props.url} />
-                        <input type='text' name='price' defaultValue={this.props.price} />
-                        <input type='text' name='rating' defaultValue={this.props.rating} />
-                        <input type='text' name='visited' defaultValue= "0" />
+                        <input type='hidden' name='user_id' defaultValue={this.props.user_id} />
+                        <input type='hidden' name='yelp_id' defaultValue={this.props.yelp_id} />
+                        <input type='hidden' name='name' defaultValue={this.props.name} />
+                        <input type='hidden' name='phone' defaultValue={this.props.phone} />
+                        <input type='hidden' name='url' defaultValue={this.props.url} />
+                        <input type='hidden' name='price' defaultValue={this.props.price} />
+                        <input type='hidden' name='rating' defaultValue={this.props.rating} />
+                        <input type='hidden' name='visited' defaultValue= "0" />
                         <button type="submit">Favorite</button>
                         </form>
                     </div>

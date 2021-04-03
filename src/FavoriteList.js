@@ -4,77 +4,127 @@ import TokenService from './service/token-service'
 
 
 
-class ListOfDiets extends React.Component {
+class Inventory extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            favoritesById: [],
+            favoritesByUserId: [],
+
         };
     }
 
-    showUsersFavorites() {
+
+
+    componentDidMount() {
+
         let currentUser = TokenService.getUserId();
-        
-        // let currentUser = 1;
-        //console.log(currentUser)
-        let getFavoritesByUserId = `${API_ENDPOINT}/users/${currentUser}`;
+        // console.log(currentUser)
 
-        fetch(getFavoritesByUserId)
-            .then((favoritesInList) => favoritesInList.json())
-            .then((favoritesInList) => {
-                console.log(favoritesInList)
+        //if the user is not logged in, send him to landing page
+        if (!TokenService.hasAuthToken()) {
+            window.location = '/'
+        }
+
+
+
+
+
+        let getFavsByUserIdUrl = `${API_ENDPOINT}/users/${currentUser}`;
+
+        fetch(getFavsByUserIdUrl)
+            .then((favsInList) => favsInList.json())
+            .then((favsInList) => {
+                // console.log(itemsInList)
                 this.setState({
-                    getFavoritesByUserId: favoritesInList,
+                    favoritesByUserId: favsInList,
                 });
-
+                // console.log(this.state);
             })
 
             .catch((error) => this.setState({ error }));
-        
     }
 
 
-
-    deleteFavorite(event) {
-        event.preventDefault();
-
-        const data = {};
-
-        const formData = new FormData(event.target);
-
-        for (let value of formData) {
-            data[value[0]] = value[1];
-        }
-
-       // console.log(data);
-
-        let { favoriteId } = data;
-        //console.log(dietId);
-
-
-        fetch(`${API_ENDPOINT}/${favoriteId}`, {
-            method: "DELETE",
-            headers: {
-                "content-type": "application/json",
-            },
-        }).then((response) => {
-            window.location = `/favorites/${favoriteId}`;
-        });
-    }
 
     render() {
+
+
+
+        // console.log(this.state.itemsByUserId.length)
+        let showFavsList = ''
+        //by default show there are no items
+        if (this.state.favoritesByUserId.length === 0) {
+            showFavsList =
+            <tbody>
+                <tr className="favsByUser">
+                    <td>No Favorites</td>
+             </tr>
+            </tbody>
+                
+        }
+        // if there are items 
+        else {
+
+            // display details for each one of the items
+            showFavsList = this.state.favoritesByUserId.map((item, key) => {
+               
+                if (item) {
+                    return (
+                        <tbody key = {key}>
+                        <tr>  
+                            <td>{item.name}</td>
+                            <td>{item.phone}</td>
+                            <td>
+                                <a href={item.url}>Yelp Page</a>
+                            </td>
+                            <td>{item.price}</td>
+                            <td>{item.rating}</td>
+                        </tr>
+                        </tbody>
+                    )
+                }
+            })
+        }
+
+
         return (
-            <div>
-            <section className='favorite-list'>
-            <ul>
-                <li>
-                    {this.state.favoritesById}
-                </li>
-            </ul>
-            </section>
+            <div className="Favorites">
+                <section id="FavoritePage">
+                <table className ="FavoriteTable">
+                <colgroup>
+                    <col span = "4"/>
+                    <col span = "4"/>
+                    <col span = "4"/>
+                    <col span = "4"/>
+                </colgroup>
+                
+                <tbody>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+
+                    <th>
+                        Url
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Rating
+                    </th>
+                </tr>
+                </tbody>
+                    {showFavsList}
+                    </table>
+
+                </section>
             </div>
-        )
+        );
     }
 }
 
-export default ListOfDiets;
+export default Inventory;
