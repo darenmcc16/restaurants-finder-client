@@ -1,5 +1,4 @@
 import React from 'react'
-import Search from '../Search'
 import SearchResults from '../SearchResults'
 import {API_ENDPOINT} from '../config'
 import TokenService from '../service/token-service'
