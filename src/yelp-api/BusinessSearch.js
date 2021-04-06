@@ -121,7 +121,7 @@ class BusinessSearch extends React.Component {
         //const queryString = this.formatQueryParams(data)
 
         //sent all the params to the final url
-        const api = `http://localhost:8000/api/restaurants-by-location-api-data/${data.term}/${data.location}`
+        const api = `${API_ENDPOINT}/restaurants-by-location-api-data/${data.term}/${data.location}`
         console.log(data.term)
         console.log(data.location)
 
