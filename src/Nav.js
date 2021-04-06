@@ -62,9 +62,6 @@ class Nav extends Component {
                             <li>
                                 <Link to='/user/login' >Login</Link>
                             </li>
-                            <li>
-                                <Link to='/favorites'>Your Favorites</Link>
-                            </li>
                         </ul>
                     </nav>
                 }

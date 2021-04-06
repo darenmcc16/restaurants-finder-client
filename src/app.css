@@ -120,6 +120,15 @@ button {
     padding-top: 15px;
     padding-bottom: 15px;
   }
+  /* .contain-wrapper{
+    background-image: url(./images/transparent.jpg);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    width: 60%;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+} */
 
   header {
     margin-bottom: 20px;
@@ -177,9 +186,14 @@ button {
     padding: 72px;
     text-align: left;
   }
-  #description {
-    margin-bottom: 50px;
-  }
+ #landingPage{
+  border-radius: 0.5rem;
+  padding: 2rem;
+  width: 60%;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+ }
 
   .Login {
     font-size: 20px;
@@ -318,6 +332,7 @@ button {
     border-top: 1px solid lightgrey;
     display: block;
     list-style-type: none;
+    background-color: lightgrey;
   }
   
   .Footer li {
