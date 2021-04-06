@@ -29,7 +29,7 @@ class Inventory extends React.Component {
 
 
 
-        let getFavsByUserIdUrl = `${API_ENDPOINT}/users/${currentUser}`;
+        let getFavsByUserIdUrl = `${API_ENDPOINT}/favorites/users/${currentUser}`;
 
         fetch(getFavsByUserIdUrl)
             .then((favsInList) => favsInList.json())
