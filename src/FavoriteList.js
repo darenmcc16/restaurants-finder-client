@@ -66,6 +66,7 @@ class Inventory extends React.Component {
         else {
 
             // display details for each one of the items
+            console.log(this.state.favoritesByUserId)
             showFavsList = this.state.favoritesByUserId.map((item, key) => {
                
                 if (item) {
