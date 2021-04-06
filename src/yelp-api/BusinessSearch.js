@@ -222,7 +222,7 @@ class BusinessSearch extends React.Component {
         
  
 
-        fetch(`${API_ENDPOINT}`, {
+        fetch(`${API_ENDPOINT}/favorites`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
